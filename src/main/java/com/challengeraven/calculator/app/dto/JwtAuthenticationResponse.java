@@ -1,8 +1,12 @@
 package com.challengeraven.calculator.app.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
 public class JwtAuthenticationResponse {
 	private String token;
 	private String refreshToken;
