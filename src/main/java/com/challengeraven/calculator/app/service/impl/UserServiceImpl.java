@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 		
 		authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		
-		var user = userRepository.findByEmail(siginRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("invalid email or password"));
+		var user = userRepository.findByUsername(siginRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("invalid email or password"));
 		var jwt = jwtService.generateToken(user);
 		var refreshToken = jwtService.refreshTokenClaims(new HashMap<>(), user);
 		
@@ -79,6 +79,12 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return null;
+	}
+
+
+	@Override
+	public UserEntity findByUsername(String username) {
+		return userRepository.findByUsername(username).orElse(null);
 	}
 	
 	
