@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.challengeraven.calculator.app.config.Constants;
 import com.challengeraven.calculator.app.dto.ApiErrorDTO;
 
 import jakarta.validation.ConstraintViolationException;
@@ -19,7 +20,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorDTO> handleIllegalArgument(IllegalArgumentException ex) {
     	ApiErrorDTO error = new ApiErrorDTO(
                 HttpStatus.BAD_REQUEST.value(),
-                "Error de validación de operación",
+                Constants.MSG_ERR_OPERATION,
                 ex.getMessage()
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -46,7 +47,7 @@ public class GlobalExceptionHandler {
 
         ApiErrorDTO apiError = new ApiErrorDTO(
                 HttpStatus.BAD_REQUEST.value(),
-                "Error de validación de campos",
+                Constants.MSG_ERR_VALIDATION,
                 detail
         );
 
@@ -62,7 +63,7 @@ public class GlobalExceptionHandler {
 
         ApiErrorDTO apiError = new ApiErrorDTO(
                 HttpStatus.BAD_REQUEST.value(),
-                "Parámetros inválidos",
+                Constants.MSG_ERR_PARAMETER,
                 detail
         );
 
