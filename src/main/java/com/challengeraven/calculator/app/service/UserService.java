@@ -8,6 +8,8 @@ import com.challengeraven.calculator.app.entity.UserEntity;
 
 public interface UserService {
 	
+	UserEntity findByUsername(String username);
+	
 	UserEntity signUp(SignUpRequest signUpRequest);
 	
 	JwtAuthenticationResponse siginin(SiginRequest siginRequest);

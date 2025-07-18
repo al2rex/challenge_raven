@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
@@ -18,6 +15,7 @@ import com.challengeraven.calculator.app.repository.OperationRepository;
 import com.challengeraven.calculator.app.service.OperationService;
 import com.challengeraven.calculator.app.utils.OperationMapper;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -30,6 +28,7 @@ public class OperationServiceImpl implements OperationService {
 	private final OperationMapper operationMapper;
 
 	@Override
+	@Transactional
 	public ResponseOperationDTO calculate(ParametersOperation request, Long userId) {	
 		validateOperands(request);
 

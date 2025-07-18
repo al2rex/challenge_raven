@@ -15,6 +15,7 @@ import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
 import com.challengeraven.calculator.app.dto.SiginRequest;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.OperationService;
+import com.challengeraven.calculator.app.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -29,10 +30,13 @@ public class CalculateController {
 	
 	private final OperationService operationService;
 	
+	private final UserService userService;
+	
 	@PostMapping("/calculate")
 	public ResponseEntity<ResponseOperationDTO> calculate(@Valid @RequestBody ParametersOperation request, Authentication authentication) {
-		Long userId = ((UserEntity) authentication.getPrincipal()).getId();
-		ResponseOperationDTO response = operationService.calculate(request, userId);
+		String username = ((UserEntity) authentication.getPrincipal()).getUsername();
+		UserEntity user = userService.findByUsername(username);
+		ResponseOperationDTO response = operationService.calculate(request, user.getId());
 	    return ResponseEntity.ok(response);
 	}
 

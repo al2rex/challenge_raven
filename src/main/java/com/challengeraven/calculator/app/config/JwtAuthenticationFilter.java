@@ -13,7 +13,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.challengeraven.calculator.app.service.JWTService;
 import com.challengeraven.calculator.app.service.UserDetailService;
+import com.challengeraven.calculator.app.utils.OperationMapper;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+	
+	private final OperationMapper operationMapper;
 	
 	private final JWTService jwtService;
 	
@@ -42,21 +47,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 		
 		jwt = authHeader.substring(7);
-		userEmail = jwtService.extractUsername(jwt);
-		
-		if(!StringUtils.isEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = userDetailService.userDetailService().loadUserByUsername(userEmail);
-			if(jwtService.isTokenValid(jwt, userDetails)) {
-				SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-				
-				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-				token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				
-				securityContext.setAuthentication(token);
-				SecurityContextHolder.setContext(securityContext);
+		try {
+			userEmail = jwtService.extractUsername(jwt);
+			
+			if(!StringUtils.isEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UserDetails userDetails = userDetailService.userDetailService().loadUserByUsername(userEmail);
+				if(jwtService.isTokenValid(jwt, userDetails)) {
+					SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+					
+					UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+					token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					
+					securityContext.setAuthentication(token);
+					SecurityContextHolder.setContext(securityContext);
+				}
 			}
-		}
-				
-		filterChain.doFilter(request, response);
+					
+			filterChain.doFilter(request, response);
+		}catch (ExpiredJwtException e) {
+			operationMapper.setErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "El token ha expirado.");
+	    } catch (JwtException | IllegalArgumentException e) {
+	    	operationMapper.setErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Token inválido.");
+	    }
 	}
 }
