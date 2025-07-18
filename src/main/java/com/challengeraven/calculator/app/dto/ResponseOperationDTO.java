@@ -3,7 +3,6 @@ package com.challengeraven.calculator.app.dto;
 import java.math.BigDecimal;
 
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
-import com.challengeraven.calculator.app.entity.UserEntity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

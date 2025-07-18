@@ -20,7 +20,8 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@Tag(name = "User Controller", description = "Operaciones relacionadas con usuarios")
+@Tag(name = "User Controller", description = "Controlador relacionado con las operaciones de "
+		+ "registrar usuario y obtener token de inicio de sesion")
 public class UserController {
 	
 	private final UserService userService;

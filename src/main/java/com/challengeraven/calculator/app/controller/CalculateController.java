@@ -16,6 +16,7 @@ import com.challengeraven.calculator.app.dto.SiginRequest;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.OperationService;
 import com.challengeraven.calculator.app.service.UserService;
+import com.challengeraven.calculator.app.utils.Validator;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@Tag(name = "Calculate Controller", description = "Operaciones relacionadas con las operaciones SUMA, RESTA, "
+@Tag(name = "Calculate Controller", description = "Controlador relacionado con las operaciones SUMA, RESTA, "
 		+ "MULTIPLICACION, DIVISION, RAIZ CUADRADA y el historico de las operaciones")
 public class CalculateController {
 	
@@ -32,8 +33,11 @@ public class CalculateController {
 	
 	private final UserService userService;
 	
+	private final Validator validator;
+	
 	@PostMapping("/calculate")
 	public ResponseEntity<ResponseOperationDTO> calculate(@Valid @RequestBody ParametersOperation request, Authentication authentication) {
+		validator.validateOperands(request);
 		String username = ((UserEntity) authentication.getPrincipal()).getUsername();
 		UserEntity user = userService.findByUsername(username);
 		ResponseOperationDTO response = operationService.calculate(request, user.getId());
