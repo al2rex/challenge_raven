@@ -14,7 +14,6 @@ import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -22,14 +21,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Tag(name = "User Controller", description = "Operaciones relacionadas con usuarios")
-
 public class UserController {
 	
 	private final UserService userService;
 	
 	
 	@Operation(summary = "Obtener usuario por ID", description = "Devuelve un usuario específico por su ID")
-   
 	@PostMapping("/register")
 	public ResponseEntity<UserEntity> signUp(@RequestBody SignUpRequest signUpRequest){
 		return ResponseEntity.ok(userService.signUp(signUpRequest));
