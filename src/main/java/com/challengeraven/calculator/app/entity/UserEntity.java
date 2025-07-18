@@ -37,9 +37,6 @@ public class UserEntity implements Serializable, UserDetails {
 		return null;
 	}
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 }
