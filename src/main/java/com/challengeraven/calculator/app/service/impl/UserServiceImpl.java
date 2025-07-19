@@ -3,6 +3,8 @@ package com.challengeraven.calculator.app.service.impl;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +34,8 @@ public class UserServiceImpl implements UserService {
 	private final JWTService jwtService;
 	
 	private final AuthenticationManager authenticationManager;
+	
+	public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 
 	@Override

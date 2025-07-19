@@ -26,7 +26,6 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	
 	@Operation(summary = "Obtener usuario por ID", description = "Devuelve un usuario específico por su ID")
 	@PostMapping("/register")
 	public ResponseEntity<UserEntity> signUp(@RequestBody SignUpRequest signUpRequest){
