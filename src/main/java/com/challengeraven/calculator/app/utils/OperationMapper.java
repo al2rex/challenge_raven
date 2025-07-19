@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
 import com.challengeraven.calculator.app.entity.OperationEntity;
+import com.challengeraven.calculator.app.entity.UserEntity;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -30,5 +31,23 @@ public class OperationMapper {
 
 	    String json = String.format("{\"status\": %d, \"error\": \"%s\"}", status, message);
 	    response.getWriter().write(json);
+	}
+	
+	public UserEntity fromIdUser(Long id) {
+		UserEntity user = new UserEntity();
+		user.setId(id);
+		return user;
+	}
+	
+	public ResponseOperationDTO fromOperationEntityTOResponseOperationDTO(OperationEntity operationEntity){
+		ResponseOperationDTO responseOperationDTO = new ResponseOperationDTO();
+		responseOperationDTO.setId(operationEntity.getId());
+		responseOperationDTO.setOperation(operationEntity.getOperation());
+		responseOperationDTO.setOperandA(operationEntity.getOperandA());
+		responseOperationDTO.setOperandB(operationEntity.getOperandB());
+		responseOperationDTO.setResult(operationEntity.getResult());
+		responseOperationDTO.setTimestamp(operationEntity.getTimestamp());
+		responseOperationDTO.setUserId(operationEntity.getUsuario().getId().toString());
+		return responseOperationDTO;
 	}
 }

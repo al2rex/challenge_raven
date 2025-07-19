@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.challengeraven.calculator.app.config.Constants;
 import com.challengeraven.calculator.app.dto.ApiErrorDTO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
@@ -18,7 +19,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiErrorDTO> handleIllegalArgument(IllegalArgumentException ex) {
-    	ApiErrorDTO error = new ApiErrorDTO(
+        ApiErrorDTO error = new ApiErrorDTO(
                 HttpStatus.BAD_REQUEST.value(),
                 Constants.MSG_ERR_OPERATION,
                 ex.getMessage()
@@ -26,17 +27,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    // Puedes agregar más handlers si lo deseas
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorDTO> handleAll(Exception ex) {
-    	ApiErrorDTO error = new ApiErrorDTO(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Error interno del servidor",
-                ex.getMessage()
-        );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
-    }
-    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
         String detail = ex.getBindingResult()
@@ -68,5 +58,24 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiErrorDTO> handleAll(Exception ex, HttpServletRequest request) {
+        String uri = request.getRequestURI();
+
+        // Ignora rutas de Swagger/OpenAPI y recursos estáticos
+        if (uri.contains("/swagger") || uri.contains("/v3/api-docs") || uri.contains("/webjars")) {
+            // Deja que Spring maneje esta excepción (no devuelvas respuesta aquí)
+            return null;
+        }
+
+        ApiErrorDTO error = new ApiErrorDTO(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Error interno del servidor",
+                ex.getMessage()
+        );
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 }
