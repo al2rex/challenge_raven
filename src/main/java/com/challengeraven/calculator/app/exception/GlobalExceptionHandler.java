@@ -2,6 +2,7 @@ package com.challengeraven.calculator.app.exception;
 
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -69,7 +70,7 @@ public class GlobalExceptionHandler {
         String uri = request.getRequestURI();
 
         if (uri.startsWith("/swagger-ui") || uri.startsWith("/v3/api-docs") || uri.startsWith("/webjars")) {
-            throw ex; // permite que Swagger funcione
+            throw ex;
         }
 
         ApiErrorDTO error = new ApiErrorDTO(
@@ -79,5 +80,27 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+    
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiErrorDTO> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        String detailMessage = ex.getRootCause() != null ? ex.getRootCause().getMessage() : ex.getMessage();
+        String userMessage;
+
+        if (detailMessage.contains("users_username_key")) {
+            userMessage = "El nombre de usuario ya está en uso.";
+        } else if (detailMessage.contains("users_email_key")) {
+            userMessage = "El correo electrónico ya está en uso.";
+        } else {
+            userMessage = "Error de integridad en la base de datos.";
+        }
+
+        ApiErrorDTO apiError = new ApiErrorDTO(
+                HttpStatus.BAD_REQUEST.value(),
+                userMessage,
+                detailMessage
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
     }
 }
