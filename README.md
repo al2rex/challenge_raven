@@ -42,6 +42,22 @@ validemail.api.access-key=pegartuacceskeyaqui
 
 
 ## 4. Lógica aplicada para determinar si un email es aceptado
+La lógica implementada para saber si un email es aceptado es muy sencilla, en el proceso de creación del suaurio a nivel de controlador de agrego una linea de validación, el archivo que hace la validacion se encuentra en el paque utils, así las cosas una vez entra la peticion del usuario se pasa como parametro el email del usuario al metodo que hace el llamado a la api de mailboxlayer, una vez responde la api, se deserializa el objeto y se pasa a pojo, una vez manipulable a nivel de java se hacen las siguientes validaciones:
+
+```
+if(validationEmail.getDisposable()) {
+			throw new IllegalArgumentException("Disposable email addresses are not allowed");
+		}
+		
+		if(!validationEmail.getFormat_valid()) {
+			throw new IllegalArgumentException("No valid email addresses are not allowed");
+		}
+		
+		if(!validationEmail.getMx_found()) {
+			throw new IllegalArgumentException("No found mx email addresses are not allowed");
+		}
+```
+> **NOTA:** el primer condicional valida que si el email es desechable, es un booleano y si viene true, indica que el email es desechable, la siguiente validación indica el validez en el formato, si es formato valido es true pero nosotro queremos capturar cuando NO sea valido, es por ello la negación al inicio del condicional y final mente sucede lo mismo para los registros mx encontrados.
 
 ## 5. Instrucciones de instalación
 
@@ -57,6 +73,7 @@ docker run -p5432:5432 --name spring-sql -e POSTGRES_USER=calculator -e POSTGRES
 > **NOTA:** Este comando creara un contenedor con una base de datos en postgresql llamada calculatordb, un usuario:  calculator y finalmente el password: raven*1234, todos de vital importancia para que el microservico pueda establacer conexion con la base de datos y operar a normalidad
 
 ### 6.2 Configuracion API externa
+**En esta misma documentación revisar item 3, apartado 4**
 
 ## 7. Ejemplos de uso con curl/httpie
 ### 7.1 Usuarios
@@ -70,7 +87,7 @@ curl --location 'localhost:8080/api/auth/register' \
     "email": "tu@elingaldo.com"
 }'
 ```
-**iniciar Sesion usuarios**
+**Iniciar sesion usuarios**
 
 ```
 curl --location 'localhost:8080/api/auth/login' \
@@ -114,4 +131,6 @@ curl --location --request DELETE 'localhost:8080/api/history/6' \
 ## 8. Decisiones técnicas tomadas
 
 
-## [Swagger](http://localhost:8080/swagger-ui/index.html) 
+## Documentación Swagger 
+Una vez el microservicio este ejecutado, en la pagina del navegador de su preferencia visitar la url
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) 
