@@ -1,12 +1,23 @@
 # Calculadora - Challenge RAVEN
 - **Author:** Arnaldo Castilla - yo@elingaldo.com
 
+### Maquina usada para la creacion de este proyecto:
+
+```
+Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)
+Maven home: C:\Users\Administrador\.m2\wrapper\dists\apache-maven-3.9.10\a38810a491b03367137adfdfbe7d14c4
+Java version: 21, vendor: Oracle Corporation, runtime: C:\jdk-21
+Default locale: es_CO, platform encoding: UTF-8
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+```
+
 ## 1. Versión
 
 - **IDE:** Spring Tool Suite 4
 - **Version:** 4.27.0.RELEASE 
 - **Spring Boot:** 3.5.3
 - **Postgresql:** 14  
+- **Maven:** 3.9.10  
 - **Java:** 21  
 
 
@@ -42,22 +53,22 @@ validemail.api.access-key=pegartuacceskeyaqui
 
 
 ## 4. Lógica aplicada para determinar si un email es aceptado
-La lógica implementada para saber si un email es aceptado es muy sencilla, en el proceso de creación del suaurio a nivel de controlador de agrego una linea de validación, el archivo que hace la validacion se encuentra en el paque utils, así las cosas una vez entra la peticion del usuario se pasa como parametro el email del usuario al metodo que hace el llamado a la api de mailboxlayer, una vez responde la api, se deserializa el objeto y se pasa a pojo, una vez manipulable a nivel de java se hacen las siguientes validaciones:
+La lógica implementada para saber si un email es aceptado es muy sencilla, en el proceso de creación del usaurio a nivel de controlador se agrego una linea de validación, el archivo que hace la validacion se encuentra en el paquete utils, así las cosas, una vez entra la petición del usuario se pasa como parametro el email del usuario al metodo que hace el llamado a la api de mailboxlayer, una vez responde la api, se deserializa el objeto y se pasa a pojo, una vez manipulable a nivel de java se hacen las siguientes validaciones:
 
 ```
 if(validationEmail.getDisposable()) {
-			throw new IllegalArgumentException("Disposable email addresses are not allowed");
-		}
-		
-		if(!validationEmail.getFormat_valid()) {
-			throw new IllegalArgumentException("No valid email addresses are not allowed");
-		}
-		
-		if(!validationEmail.getMx_found()) {
-			throw new IllegalArgumentException("No found mx email addresses are not allowed");
+		throw new IllegalArgumentException("Disposable email addresses are not allowed");
+	}
+	
+	if(!validationEmail.getFormat_valid()) {
+		throw new IllegalArgumentException("No valid email addresses are not allowed");
+	}
+	
+	if(!validationEmail.getMx_found()) {
+		throw new IllegalArgumentException("No found mx email addresses are not allowed");
 		}
 ```
-> **NOTA:** el primer condicional valida que si el email es desechable, es un booleano y si viene true, indica que el email es desechable, la siguiente validación indica el validez en el formato, si es formato valido es true pero nosotro queremos capturar cuando NO sea valido, es por ello la negación al inicio del condicional y final mente sucede lo mismo para los registros mx encontrados.
+> **NOTA:** El primer condicional valida que si el email es desechable, el api al responder contiene un atributo llamado Disposable, es un booleano y si viene true, indica que el email es desechable, la siguiente validación indica el validez en el formato, si es formato valido es true pero nosotro queremos capturar cuando NO sea valido, es por ello la negación al inicio del condicional y final mente sucede lo mismo para los registros mx encontrados.
 
 ## 5. Instrucciones de instalación
 
@@ -73,7 +84,7 @@ docker run -p5432:5432 --name spring-sql -e POSTGRES_USER=calculator -e POSTGRES
 > **NOTA:** Este comando creara un contenedor con una base de datos en postgresql llamada calculatordb, un usuario:  calculator y finalmente el password: raven*1234, todos de vital importancia para que el microservico pueda establacer conexion con la base de datos y operar a normalidad
 
 ### 6.2 Configuracion API externa
-**En esta misma documentación revisar item 3, apartado 4**
+**En esta misma documentación revisar item 3, apartado 4.**
 
 ## 7. Ejemplos de uso con curl/httpie
 ### 7.1 Usuarios
