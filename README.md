@@ -1,5 +1,5 @@
 # Calculadora - Challenge RAVEN
-- **Author:** Arnaldo Castilla (yo@elingaldo.com)
+- **Author:** Arnaldo Castilla - yo@elingaldo.com
 
 ## 1. Versión
 
@@ -46,6 +46,17 @@ validemail.api.access-key=pegartuacceskeyaqui
 ## 5. Instrucciones de instalación
 
 ## 6. Configuración de base de datos y API externa
+### 6.1 Configuración base de datos PostgreSQL-14
+Para el desarrollo de este proyecto se utilizó una base de datos contenerizada en docker para mayor agilidad, es necesario tener instalado docker desktop en la maquina donde operará el aplicativo, si NO lo tienes estalado por favor visita este [enlace](https://www.docker.com/get-started/).
+
+Una vez instalado y ejecutado docker desktop, abrir una terminal y ejecutar el siguiente comando:
+```
+docker run -p5432:5432 --name spring-sql -e POSTGRES_USER=calculator -e POSTGRES_PASSWORD=raven*1234 -e POSTGRES_DB=calculatordb -d postgres:14
+```
+
+> **NOTA:** Este comando creara un contenedor con una base de datos en postgresql llamada calculatordb, un usuario:  calculator y finalmente el password: raven*1234, todos de vital importancia para que el microservico pueda establacer conexion con la base de datos y operar a normalidad
+
+### 6.2 Configuracion API externa
 
 ## 7. Ejemplos de uso con curl/httpie
 ### 7.1 Usuarios
