@@ -57,20 +57,26 @@ La lógica implementada para saber si un email es aceptado es muy sencilla, en e
 
 ```
 if(validationEmail.getDisposable()) {
-		throw new IllegalArgumentException("Disposable email addresses are not allowed");
-	}
+	throw new IllegalArgumentException("Disposable email addresses are not allowed");
+}
 	
-	if(!validationEmail.getFormat_valid()) {
-		throw new IllegalArgumentException("No valid email addresses are not allowed");
-	}
+if(!validationEmail.getFormat_valid()) {
+	throw new IllegalArgumentException("No valid email addresses are not allowed");
+}
 	
-	if(!validationEmail.getMx_found()) {
-		throw new IllegalArgumentException("No found mx email addresses are not allowed");
-		}
+if(!validationEmail.getMx_found()) {
+	throw new IllegalArgumentException("No found mx email addresses are not allowed");
+}
 ```
 > **NOTA:** El primer condicional valida que si el email es desechable, el api al responder contiene un atributo llamado Disposable, es un booleano y si viene true, indica que el email es desechable, la siguiente validación indica el validez en el formato, si es formato valido es true pero nosotro queremos capturar cuando NO sea valido, es por ello la negación al inicio del condicional y final mente sucede lo mismo para los registros mx encontrados.
 
 ## 5. Instrucciones de instalación
+1. Tener configurado la variable de entorno para java.
+2. Tener instalado Docker desktop, para el contenedor de la base de datos
+3. Tener una cuenta creada en mailboxlayer, en caso tal el access-key, utilizado deje de funcionar.
+4. Tener importado clonado e importado en un IDE de preferencia
+5. Ejecutar proyecto.
+
 
 ## 6. Configuración de base de datos y API externa
 ### 6.1 Configuración base de datos PostgreSQL-14
@@ -140,6 +146,12 @@ curl --location --request DELETE 'localhost:8080/api/history/6' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGRvIiwiaWF0IjoxNzUyOTAwMDU0LCJleHAiOjE3NTI5MDM2NTR9.sPQ7M1hwlnlNVIFKdBWFmgRuDAm0gfKWZv3LkQHdVQI'
 ```
 ## 8. Decisiones técnicas tomadas
+
+1. Las excepciones fueron definidas globales, contenidas en el archivo GlobalExceptionHandler, ubicado en el paque execption.
+2. Estructuración de proyectos por capas.
+3. Implementación de Lombok para agilizar la creación de clases tipo DTO y servicios, reduciendo el boilerplate mediante anotaciones.
+4. Uso de los principios de clean code en el desarrollo de los clases
+5. implementación de la libreria estable de jwt, evitando funciones deprecadas.
 
 
 ## Documentación Swagger 
