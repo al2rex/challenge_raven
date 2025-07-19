@@ -11,9 +11,9 @@
 
 
 
-##API externa utilizada y razón de la elección
+## API externa utilizada y razón de la elección
 
- **[mailboxlayer](https://mailboxlayer.com/)**
+### **[mailboxlayer](https://mailboxlayer.com/)**
 
 Las razones por las que se decidio usar esta api fueron:
 
@@ -24,7 +24,7 @@ Las razones por las que se decidio usar esta api fueron:
 - más peticiones en plan free: esta api en su parte libre, es la que mayor capacidad tiene para hacer peticiones al api.
  
 
-##Ejemplo de configuración de API key
+## Ejemplo de configuración de API key
 
 1. entrar en [Crear una cuenta en mailboxplayer](https://mailboxlayer.com/signup?plan=797&billing=yearly), y rellenar tus datos.
 
