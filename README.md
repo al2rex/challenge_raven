@@ -53,7 +53,7 @@ validemail.api.access-key=pegartuacceskeyaqui
 
 
 ## 4. Lógica aplicada para determinar si un email es aceptado
-La lógica implementada para saber si un email es aceptado es muy sencilla, en el proceso de creación del usaurio a nivel de controlador se agrego una linea de validación, el archivo que hace la validacion se encuentra en el paquete utils, así las cosas, una vez entra la petición del usuario se pasa como parametro el email del usuario al metodo que hace el llamado a la api de mailboxlayer, una vez responde la api, se deserializa el objeto y se pasa a pojo, una vez manipulable a nivel de java se hacen las siguientes validaciones:
+La lógica implementada para saber si un email es aceptado es muy sencilla, en el proceso de creación del usuario a nivel de controlador se agregó una linea de validación, el archivo que hace la validacion se encuentra en el paquete utils, así las cosas, una vez entra la petición del usuario se pasa como parametro el email del usuario al metodo que hace el llamado a la api de mailboxlayer, una vez responde la api, se deserializa el objeto y se pasa a pojo, una vez manipulable a nivel de java se hacen las siguientes validaciones:
 
 ```
 if(validationEmail.getDisposable()) {
@@ -74,7 +74,7 @@ if(!validationEmail.getMx_found()) {
 1. Tener configurado la variable de entorno para java.
 2. Tener instalado Docker desktop, para el contenedor de la base de datos
 3. Tener una cuenta creada en mailboxlayer, en caso tal el access-key, utilizado deje de funcionar.
-4. Tener importado clonado e importado en un IDE de preferencia
+4. Tener clonado e importado en un IDE de preferencia
 5. Ejecutar proyecto.
 
 
@@ -88,6 +88,14 @@ docker run -p5432:5432 --name spring-sql -e POSTGRES_USER=calculator -e POSTGRES
 ```
 
 > **NOTA:** Este comando creara un contenedor con una base de datos en postgresql llamada calculatordb, un usuario:  calculator y finalmente el password: raven*1234, todos de vital importancia para que el microservico pueda establacer conexion con la base de datos y operar a normalidad
+
+**Configuración de base de datos en el application.properties**
+
+```
+spring.datasource.url=jdbc:postgresql://localhost:5432/calculatordb
+spring.datasource.username=calculator
+spring.datasource.password=raven*1234
+```
 
 ### 6.2 Configuracion API externa
 **En esta misma documentación revisar item 3, apartado 4.**
@@ -147,12 +155,12 @@ curl --location --request DELETE 'localhost:8080/api/history/6' \
 ```
 ## 8. Decisiones técnicas tomadas
 
-1. Las excepciones fueron definidas globales, contenidas en el archivo GlobalExceptionHandler, ubicado en el paque execption.
+1. Las excepciones fueron definidas globales, contenidas en el archivo GlobalExceptionHandler, ubicado en el paquete exception.
 2. Estructuración de proyectos por capas.
 3. Implementación de Lombok para agilizar la creación de clases tipo DTO y servicios, reduciendo el boilerplate mediante anotaciones.
 4. Uso de los principios de clean code en el desarrollo de los clases
-5. implementación de la libreria estable de jwt, evitando funciones deprecadas.
-
+5. implementación de la libreria estable de jwt para la generacion de tokens, evitando funciones deprecadas.
+6. Configuración centralizada en el aplication.properties
 
 ## Documentación Swagger 
 Una vez el microservicio este ejecutado, en la pagina del navegador de su preferencia visitar la url
