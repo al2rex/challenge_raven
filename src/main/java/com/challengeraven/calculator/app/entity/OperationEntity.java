@@ -39,7 +39,6 @@ public class OperationEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private UserEntity usuario;
 
-
 	private static final long serialVersionUID = 1L;
 
 }

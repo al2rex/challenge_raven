@@ -4,17 +4,18 @@ import java.math.BigDecimal;
 
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ParametersOperation {
 	
 	private TypeOperationEnum operation;
 	
 	private BigDecimal operandA;
 	
-
 	private BigDecimal operandB;
 }

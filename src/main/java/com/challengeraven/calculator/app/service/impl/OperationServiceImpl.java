@@ -3,10 +3,11 @@ package com.challengeraven.calculator.app.service.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.challengeraven.calculator.app.dto.ParametersOperation;
@@ -32,7 +33,7 @@ public class OperationServiceImpl implements OperationService {
 	private final OperationMapper operationMapper;
 
 	private final OperationRepository operationRepository;
-	
+
 	public static final Logger logger = LoggerFactory.getLogger(OperationServiceImpl.class);
 
 	@Override
@@ -62,26 +63,38 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public ResponseOperationDTO findById(Long id) {
 		logger.info("Inicia busqueda operation service por ID {}", id);
+
 		OperationEntity operationFind = operationRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Operación con ID " + id + " no encontrada"));
 		ResponseOperationDTO responseOperationDTO = operationMapper
 				.fromOperationEntityTOResponseOperationDTO(operationFind);
 		logger.info("Resultado econtrado operation service {}", responseOperationDTO);
+
 		logger.info("Termina busqueda operation service por ID {}", id);
+
 		return responseOperationDTO;
 	}
 
 	@Override
-	public List<OperationEntity> findAllOperationList() {
-		return (List<OperationEntity>) operationRepository.findAll();
+	public Page<ResponseOperationDTO> findAllOperationList(Pageable pageable) {
+		logger.info("Inicia service lista operaciones");
+		
+		Page<OperationEntity> operationsPage = operationRepository.findAll(pageable);
+
+	    Page<ResponseOperationDTO> dtoPage = operationsPage.map(operationMapper::toDTO);
+
+
+		logger.info("Termina service lista operaciones");
+
+		return dtoPage;
 	}
 
 	@Override
 	public void DeleteById(Long id) {
 		logger.info("Inicia service eliminar operation por ID {}", id);
-		operationRepository.deleteById(id);
-		logger.info("Termina service eliminar operation por ID {}", id);
 		
+		operationRepository.deleteById(id);
+		
+		logger.info("Termina service eliminar operation por ID {}", id);
 	}
-
 }

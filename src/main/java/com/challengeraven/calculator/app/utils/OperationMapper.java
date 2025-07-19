@@ -1,6 +1,8 @@
 package com.challengeraven.calculator.app.utils;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class OperationMapper {
+	
 	public ResponseOperationDTO toDTO(OperationEntity entity) {
         ResponseOperationDTO dto = new ResponseOperationDTO();
         dto.setId(entity.getId());
@@ -50,4 +53,10 @@ public class OperationMapper {
 		responseOperationDTO.setUserId(operationEntity.getUsuario().getId().toString());
 		return responseOperationDTO;
 	}
+	
+	public List<ResponseOperationDTO> toDtoList(List<OperationEntity> operaciones) {
+        return operaciones.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
 }

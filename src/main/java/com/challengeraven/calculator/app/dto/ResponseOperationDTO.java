@@ -5,9 +5,13 @@ import java.math.BigDecimal;
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Schema(description = "ResponseOperationDTO que representa los parametros para realizar una operacion")
 public class ResponseOperationDTO {
 	@Schema(description = "ID único de la operación", example = "123")
@@ -16,7 +20,6 @@ public class ResponseOperationDTO {
 	private TypeOperationEnum operation;
 	
 	private BigDecimal operandA;
-	
 
 	private BigDecimal operandB;
 	
