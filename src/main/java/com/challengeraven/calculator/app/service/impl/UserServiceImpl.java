@@ -53,12 +53,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public JwtAuthenticationResponse siginin(SiginRequest siginRequest) {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(siginRequest.getEmail(), 
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(siginRequest.getUsername(), 
 				siginRequest.getPassword());
 		
 		authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		
-		var user = userRepository.findByUsername(siginRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("invalid email or password"));
+		var user = userRepository.findByUsername(siginRequest.getUsername()).orElseThrow(() -> new IllegalArgumentException("invalid username or password"));
 		var jwt = jwtService.generateToken(user);
 		var refreshToken = jwtService.refreshTokenClaims(new HashMap<>(), user);
 		
