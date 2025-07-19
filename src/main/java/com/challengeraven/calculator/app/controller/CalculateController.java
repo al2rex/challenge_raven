@@ -1,12 +1,10 @@
 package com.challengeraven.calculator.app.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.data.domain.Sort;
 
 import com.challengeraven.calculator.app.dto.ParametersOperation;
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
@@ -25,6 +22,7 @@ import com.challengeraven.calculator.app.service.OperationService;
 import com.challengeraven.calculator.app.service.UserService;
 import com.challengeraven.calculator.app.utils.Validator;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Tag(name = "Calculate Controller", description = "Controlador relacionado con las operaciones SUMA, RESTA, "
 		+ "MULTIPLICACION, DIVISION, RAIZ CUADRADA y el historico de las operaciones")
+@SecurityRequirement(name = "bearerAuth")
 public class CalculateController {
 	
 	private final OperationService operationService;
@@ -78,7 +77,7 @@ public class CalculateController {
 	
 	@GetMapping("/history")
 	public ResponseEntity<Page<ResponseOperationDTO>> operatioonHistoryList(
-	         Pageable pageable) {
+			@ParameterObject Pageable pageable) {
 		Page<ResponseOperationDTO> response = operationService.findAllOperationList(pageable);
 	    return ResponseEntity.ok(response);
 	}
