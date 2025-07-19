@@ -70,6 +70,16 @@ curl --location 'localhost:8080/api/auth/register' \
     "email": "tu@elingaldo.com"
 }'
 ```
+**iniciar Sesion usuarios**
+
+```
+curl --location 'localhost:8080/api/auth/login' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username": "aldo1",
+    "password": "qaz123"
+}'
+```
 
 ### 7.2 Operaciones
 **Hacer operación**
