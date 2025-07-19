@@ -46,10 +46,7 @@ public class SecurityConfiguration {
 		                "/v3/api-docs/**",
 		                "/webjars/**")
 				.permitAll()
-				
-				
-				.anyRequest().authenticated())
-				
+				.anyRequest().authenticated())			
 				.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, (Class<? extends Filter>) UsernamePasswordAuthenticationFilter.class);
 		} catch (Exception e) {

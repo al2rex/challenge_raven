@@ -18,6 +18,7 @@ import jakarta.validation.ConstraintViolationException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
+
     public ResponseEntity<ApiErrorDTO> handleIllegalArgument(IllegalArgumentException ex) {
         ApiErrorDTO error = new ApiErrorDTO(
                 HttpStatus.BAD_REQUEST.value(),
@@ -28,6 +29,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+
     public ResponseEntity<ApiErrorDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
         String detail = ex.getBindingResult()
                 .getFieldErrors()
@@ -45,6 +47,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
+
     public ResponseEntity<ApiErrorDTO> handleConstraintViolation(ConstraintViolationException ex) {
         String detail = ex.getConstraintViolations()
                 .stream()
@@ -61,13 +64,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorDTO> handleAll(Exception ex, HttpServletRequest request) {
+
+    public ResponseEntity<ApiErrorDTO> handleAll(Exception ex, HttpServletRequest request) throws Exception {
         String uri = request.getRequestURI();
 
-        // Ignora rutas de Swagger/OpenAPI y recursos estáticos
-        if (uri.contains("/swagger") || uri.contains("/v3/api-docs") || uri.contains("/webjars")) {
-            // Deja que Spring maneje esta excepción (no devuelvas respuesta aquí)
-            return null;
+        if (uri.startsWith("/swagger-ui") || uri.startsWith("/v3/api-docs") || uri.startsWith("/webjars")) {
+            throw ex; // permite que Swagger funcione
         }
 
         ApiErrorDTO error = new ApiErrorDTO(
