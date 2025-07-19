@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserEntity signUp(SignUpRequest signUpRequest) {
+		
 		UserEntity user = new UserEntity();
 		
 		user.setUsername(signUpRequest.getUsername());

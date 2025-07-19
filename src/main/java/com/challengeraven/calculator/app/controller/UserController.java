@@ -12,6 +12,7 @@ import com.challengeraven.calculator.app.dto.SiginRequest;
 import com.challengeraven.calculator.app.dto.SignUpRequest;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.UserService;
+import com.challengeraven.calculator.app.utils.Validator;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,11 +25,14 @@ import lombok.RequiredArgsConstructor;
 		+ "registrar usuario y obtener token de inicio de sesion")
 public class UserController {
 	
+	private final Validator validator;
+	
 	private final UserService userService;
 	
 	@Operation(summary = "Obtener usuario por ID", description = "Devuelve un usuario específico por su ID")
 	@PostMapping("/register")
 	public ResponseEntity<UserEntity> signUp(@RequestBody SignUpRequest signUpRequest){
+		validator.validationEmail(signUpRequest.getEmail());
 		return ResponseEntity.ok(userService.signUp(signUpRequest));
 	}
 	
