@@ -7,12 +7,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.challengeraven.calculator.app.client.ValidEmaiHttpClient;
 import com.challengeraven.calculator.app.config.Constants;
+import com.challengeraven.calculator.app.config.EmailApiProperties;
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
 import com.challengeraven.calculator.app.dto.ParametersOperation;
+import com.challengeraven.calculator.app.dto.ResponseMailBoxValidation;
+
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class Validator {
+	
+	private final EmailApiProperties emailProperties;
+	
+	private final ValidEmaiHttpClient validEmaiHttpClient;
 	
 	public static final Logger logger = LoggerFactory.getLogger(Validator.class);
 	
@@ -47,5 +57,24 @@ public class Validator {
 		BigDecimal x = new BigDecimal(Math.sqrt(value.doubleValue()));
 		return x.setScale(10, RoundingMode.HALF_UP);
 	}
+	
+	public void validationEmail(String email) {
+		ResponseMailBoxValidation validationEmail = validEmaiHttpClient.validationEmailByExternalService(emailProperties.getAccessKey(), email, 1, 1);
+		
+		if(validationEmail.getDisposable()) {
+			throw new IllegalArgumentException("Disposable email addresses are not allowed");
+		}
+		
+		if(!validationEmail.getFormat_valid()) {
+			throw new IllegalArgumentException("No valid email addresses are not allowed");
+		}
+		
+		if(!validationEmail.getMx_found()) {
+			throw new IllegalArgumentException("No found mx email addresses are not allowed");
+		}
+	}
+	
+	
+	
 
 }
