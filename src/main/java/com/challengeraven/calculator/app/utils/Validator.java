@@ -1,6 +1,7 @@
 package com.challengeraven.calculator.app.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,11 @@ public class Validator {
 	    	logger.error(Constants.MSG_SQRT);
 	        throw new IllegalArgumentException(Constants.MSG_SQRT);
 	    }
+	}
+	
+	public BigDecimal sqrt(BigDecimal value) {
+		BigDecimal x = new BigDecimal(Math.sqrt(value.doubleValue()));
+		return x.setScale(10, RoundingMode.HALF_UP);
 	}
 
 }

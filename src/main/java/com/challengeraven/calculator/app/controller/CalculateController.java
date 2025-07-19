@@ -1,5 +1,7 @@
 package com.challengeraven.calculator.app.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.challengeraven.calculator.app.dto.ParametersOperation;
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
 import com.challengeraven.calculator.app.dto.SiginRequest;
+import com.challengeraven.calculator.app.entity.OperationEntity;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.OperationService;
 import com.challengeraven.calculator.app.service.UserService;
@@ -46,13 +49,13 @@ public class CalculateController {
 
 	
 	@GetMapping("/history")
-	public ResponseEntity<ResponseOperationDTO> signIn(){
-		return ResponseEntity.ok(null);
+	public ResponseEntity<List<OperationEntity>> signIn(){
+		return ResponseEntity.ok(operationService.findAllOperationList());
 	}
 	
 	@GetMapping("/history/{id}")
 	public ResponseEntity<ResponseOperationDTO> signIn(@PathVariable Long id){
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(operationService.findById(id));
 	}
 	
 	@DeleteMapping("/history/{id}")
