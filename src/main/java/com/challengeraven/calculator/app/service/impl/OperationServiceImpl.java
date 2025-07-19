@@ -61,18 +61,27 @@ public class OperationServiceImpl implements OperationService {
 
 	@Override
 	public ResponseOperationDTO findById(Long id) {
-		logger.info("Inicia busqueda operation por ID");
+		logger.info("Inicia busqueda operation service por ID {}", id);
 		OperationEntity operationFind = operationRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Operación con ID " + id + " no encontrada"));
 		ResponseOperationDTO responseOperationDTO = operationMapper
 				.fromOperationEntityTOResponseOperationDTO(operationFind);
-		logger.info("Termina busqueda operation por ID");
+		logger.info("Resultado econtrado operation service {}", responseOperationDTO);
+		logger.info("Termina busqueda operation service por ID {}", id);
 		return responseOperationDTO;
 	}
 
 	@Override
 	public List<OperationEntity> findAllOperationList() {
 		return (List<OperationEntity>) operationRepository.findAll();
+	}
+
+	@Override
+	public void DeleteById(Long id) {
+		logger.info("Inicia service eliminar operation por ID {}", id);
+		operationRepository.deleteById(id);
+		logger.info("Termina service eliminar operation por ID {}", id);
+		
 	}
 
 }

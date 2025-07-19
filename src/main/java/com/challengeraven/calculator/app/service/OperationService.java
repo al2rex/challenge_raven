@@ -13,4 +13,6 @@ public interface OperationService {
 	List<OperationEntity> findAllOperationList();
 
 	ResponseOperationDTO calculate(ParametersOperation request, Long userId);
+	
+	void DeleteById(Long id);
 }
