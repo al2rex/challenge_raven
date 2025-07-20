@@ -24,7 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
-import com.challengeraven.calculator.app.dto.ParametersOperation;
+import com.challengeraven.calculator.app.dto.ParametersOperationDTO;
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
 import com.challengeraven.calculator.app.entity.OperationEntity;
 import com.challengeraven.calculator.app.repository.OperationRepository;
@@ -53,7 +53,7 @@ public class OperationServiceImplTest {
 
     @Test
     void testCalculate_AddOperation() {
-        ParametersOperation request = new ParametersOperation();
+        ParametersOperationDTO request = new ParametersOperationDTO();
         request.setOperandA(new BigDecimal("5"));
         request.setOperandB(new BigDecimal("3"));
         request.setOperation(TypeOperationEnum.ADD);
@@ -76,7 +76,7 @@ public class OperationServiceImplTest {
 
     @Test
     void testCalculate_SqrtOperation() {
-        ParametersOperation request = new ParametersOperation();
+        ParametersOperationDTO request = new ParametersOperationDTO();
         request.setOperandA(new BigDecimal("9"));
         request.setOperation(TypeOperationEnum.SQRT);
 

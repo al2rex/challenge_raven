@@ -1,12 +1,11 @@
 package com.challengeraven.calculator.app.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
-public class RefreshTokenRequest {
-	private String token;
+public class SignInRequestDTO {
+	private String username;
+	private String password;
 }

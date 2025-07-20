@@ -1,7 +1,6 @@
 package com.challengeraven.calculator.app.service.impl;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +9,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
-import com.challengeraven.calculator.app.dto.RefreshTokenRequest;
+import com.challengeraven.calculator.app.dto.JwtAuthenticationResponseDTO;
 import com.challengeraven.calculator.app.dto.ResponseSignUpDTO;
-import com.challengeraven.calculator.app.dto.SignInRequest;
-import com.challengeraven.calculator.app.dto.SignUpRequest;
+import com.challengeraven.calculator.app.dto.SignInRequestDTO;
+import com.challengeraven.calculator.app.dto.SignUpRequestDTO;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.repository.UserRepository;
 import com.challengeraven.calculator.app.service.JWTService;
@@ -43,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public ResponseSignUpDTO signUp(SignUpRequest signUpRequest) {
+	public ResponseSignUpDTO signUp(SignUpRequestDTO signUpRequest) {
 		
 		UserEntity user = new UserEntity();
 		
@@ -58,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public JwtAuthenticationResponse siginin(SignInRequest siginRequest) {
+	public JwtAuthenticationResponseDTO siginin(SignInRequestDTO siginRequest) {
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(siginRequest.getUsername(), 
 				siginRequest.getPassword());
 		
@@ -68,7 +66,7 @@ public class UserServiceImpl implements UserService {
 		var jwt = jwtService.generateToken(user);
 		
 		
-		JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+		JwtAuthenticationResponseDTO jwtAuthenticationResponse = new JwtAuthenticationResponseDTO();
 		jwtAuthenticationResponse.setToken(jwt);
 		
 		return jwtAuthenticationResponse;

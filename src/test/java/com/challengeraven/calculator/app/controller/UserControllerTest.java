@@ -12,10 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
+import com.challengeraven.calculator.app.dto.JwtAuthenticationResponseDTO;
 import com.challengeraven.calculator.app.dto.ResponseSignUpDTO;
-import com.challengeraven.calculator.app.dto.SignInRequest;
-import com.challengeraven.calculator.app.dto.SignUpRequest;
+import com.challengeraven.calculator.app.dto.SignInRequestDTO;
+import com.challengeraven.calculator.app.dto.SignUpRequestDTO;
 import com.challengeraven.calculator.app.service.UserService;
 import com.challengeraven.calculator.app.utils.Validator;
 
@@ -34,7 +34,7 @@ public class UserControllerTest {
     @Test
     void signUp_ShouldReturnResponseEntityWithCreatedUser() {
         // Arrange
-        SignUpRequest request = new SignUpRequest();
+        SignUpRequestDTO request = new SignUpRequestDTO();
         request.setEmail("test@example.com");
 
         ResponseSignUpDTO mockResponse = new ResponseSignUpDTO();
@@ -54,17 +54,17 @@ public class UserControllerTest {
     @Test
     void signIn_ShouldReturnJwtAuthenticationResponse() {
         // Arrange
-        SignInRequest request = new SignInRequest();
+        SignInRequestDTO request = new SignInRequestDTO();
         request.setUsername("user");
         request.setPassword("pass");
 
-        JwtAuthenticationResponse mockResponse = new JwtAuthenticationResponse();
+        JwtAuthenticationResponseDTO mockResponse = new JwtAuthenticationResponseDTO();
         mockResponse.setToken("abc123");
 
         when(userService.siginin(request)).thenReturn(mockResponse);
 
         // Act
-        ResponseEntity<JwtAuthenticationResponse> response = userController.signIn(request);
+        ResponseEntity<JwtAuthenticationResponseDTO> response = userController.signIn(request);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());

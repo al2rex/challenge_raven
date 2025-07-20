@@ -1,16 +1,17 @@
 package com.challengeraven.calculator.app.service.impl;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.Map;
+import java.util.function.Function;
+
+import javax.crypto.SecretKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
-import com.challengeraven.calculator.app.dto.RefreshTokenRequest;
-import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.repository.UserRepository;
 import com.challengeraven.calculator.app.service.JWTService;
 
@@ -20,10 +21,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.security.Key;
-import java.util.function.Function;
-import javax.crypto.SecretKey;
 
 @Service
 @Getter

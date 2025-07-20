@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.challengeraven.calculator.app.dto.ParametersOperation;
+import com.challengeraven.calculator.app.dto.ParametersOperationDTO;
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
 import com.challengeraven.calculator.app.entity.OperationEntity;
 import com.challengeraven.calculator.app.repository.OperationRepository;
@@ -38,7 +38,7 @@ public class OperationServiceImpl implements OperationService {
 
 	@Override
 	@Transactional
-	public ResponseOperationDTO calculate(ParametersOperation request, Long userId) {
+	public ResponseOperationDTO calculate(ParametersOperationDTO request, Long userId) {
 		BigDecimal result = switch (request.getOperation()) {
 		case ADD -> request.getOperandA().add(request.getOperandB());
 		case SUBTRACT -> request.getOperandA().subtract(request.getOperandB());

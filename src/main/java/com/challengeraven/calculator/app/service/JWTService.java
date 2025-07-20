@@ -4,9 +4,6 @@ import java.util.Map;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
-import com.challengeraven.calculator.app.dto.RefreshTokenRequest;
-
 public interface JWTService {
 	String generateToken(UserDetails userDetails);
 	

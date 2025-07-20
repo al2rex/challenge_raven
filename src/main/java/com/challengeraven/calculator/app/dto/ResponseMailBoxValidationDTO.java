@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseMailBoxValidation {
+public class ResponseMailBoxValidationDTO {
 	private String email;
 	private String did_you_mean;
 	private String user;
