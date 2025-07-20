@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.challengeraven.calculator.app.dto.ParametersOperation;
+import com.challengeraven.calculator.app.dto.ParametersOperationDTO;
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.OperationService;
 import com.challengeraven.calculator.app.service.UserService;
 import com.challengeraven.calculator.app.utils.Validator;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -44,7 +45,9 @@ public class CalculateController {
 	public static final Logger logger = LoggerFactory.getLogger(CalculateController.class);
 	
 	@PostMapping("/calculate")
-	public ResponseEntity<ResponseOperationDTO> calculate(@Valid @RequestBody ParametersOperation request, 
+	@Operation(summary = "Hacer una operación", description = "Con los parametros tipo operacion, operandoa y b, "
+			+ "puedes realizar una operacion de la calculadora")
+	public ResponseEntity<ResponseOperationDTO> calculate(@Valid @RequestBody ParametersOperationDTO request, 
 			Authentication authentication) {
 		
 		logger.info("Inicia Controller calculate validacion operacion: payload {}", request);
@@ -76,19 +79,26 @@ public class CalculateController {
 
 	
 	@GetMapping("/history")
-	public ResponseEntity<Page<ResponseOperationDTO>> operatioonHistoryList(
+	@Operation(summary = "Hirstorial operacion", description = "Puedes ver todas las operaciones realizadas por la calculadora, "
+			+ "de igual forma  puedes ordernarlos ascendente y descendentemente, "
+			+ "y ordenar por los campos openration,operandA, operandB, timestand")
+	public ResponseEntity<Page<ResponseOperationDTO>> operationHistoryList(
 			@ParameterObject Pageable pageable) {
 		Page<ResponseOperationDTO> response = operationService.findAllOperationList(pageable);
 	    return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping("/history/{id}")
+	@Operation(summary = "Encontrar historial por id", description = "ingresar al parametro el id del historial "
+			+ "y te devolvera un objeto con todos los atributos de la operación")
 	public ResponseEntity<ResponseOperationDTO> historyById(@PathVariable Long id){
 		logger.info("Inicia Controller encontrar historico ID: {}", id);
 		return ResponseEntity.ok(operationService.findById(id));
 	}
 	
 	@DeleteMapping("/history/{id}")
+	@Operation(summary = "Elimar historial id", description = "Ingresar el id del historial "
+			+ "y al ejecutar este, eliminará de forma permanente el registro de la base de datos")
 	public void deleteHistory(@PathVariable Long id){
 		logger.info("Inicia Controller Eliminacion historico ID: {}", id);
 		operationService.DeleteById(id);

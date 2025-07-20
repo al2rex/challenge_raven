@@ -17,10 +17,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
+import com.challengeraven.calculator.app.dto.JwtAuthenticationResponseDTO;
 import com.challengeraven.calculator.app.dto.ResponseSignUpDTO;
-import com.challengeraven.calculator.app.dto.SignInRequest;
-import com.challengeraven.calculator.app.dto.SignUpRequest;
+import com.challengeraven.calculator.app.dto.SignInRequestDTO;
+import com.challengeraven.calculator.app.dto.SignUpRequestDTO;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.repository.UserRepository;
 import com.challengeraven.calculator.app.service.JWTService;
@@ -53,7 +53,7 @@ public class UserServiceImplTest {
 
     @Test
     void testSignUp_shouldReturnResponseSignUpDTO() {
-        SignUpRequest request = new SignUpRequest();
+        SignUpRequestDTO request = new SignUpRequestDTO();
         request.setUsername("aldo");
         request.setEmail("aldo@test.com");
         request.setPassword("1234");
@@ -86,7 +86,7 @@ public class UserServiceImplTest {
 
     @Test
     void testSiginin_shouldReturnJwtAuthenticationResponse() {
-        SignInRequest request = new SignInRequest();
+        SignInRequestDTO request = new SignInRequestDTO();
         request.setUsername("aldo");
         request.setPassword("1234");
 
@@ -98,7 +98,7 @@ public class UserServiceImplTest {
         when(jwtService.generateToken(user)).thenReturn("token");
         
 
-        JwtAuthenticationResponse result = userService.siginin(request);
+        JwtAuthenticationResponseDTO result = userService.siginin(request);
 
         assertNotNull(result);
         assertEquals("token", result.getToken());

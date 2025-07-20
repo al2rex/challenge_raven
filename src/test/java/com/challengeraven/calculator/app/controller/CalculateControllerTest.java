@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
-import com.challengeraven.calculator.app.dto.ParametersOperation;
+import com.challengeraven.calculator.app.dto.ParametersOperationDTO;
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.OperationService;
@@ -51,7 +51,7 @@ public class CalculateControllerTest {
     @Test
     void testCalculate() {
         
-        ParametersOperation request = new ParametersOperation();
+        ParametersOperationDTO request = new ParametersOperationDTO();
         request.setOperandA(BigDecimal.valueOf(5));
         request.setOperandB(BigDecimal.valueOf(2));
         request.setOperation(TypeOperationEnum.ADD);
@@ -88,7 +88,7 @@ public class CalculateControllerTest {
         when(operationService.findAllOperationList(pageable)).thenReturn(mockPage);
 
         
-        ResponseEntity<Page<ResponseOperationDTO>> response = calculateController.operatioonHistoryList(pageable);
+        ResponseEntity<Page<ResponseOperationDTO>> response = calculateController.operationHistoryList(pageable);
 
         
         assertEquals(HttpStatus.OK, response.getStatusCode());

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ParametersOperation {
+public class ParametersOperationDTO {
 	
 	private TypeOperationEnum operation;
 	

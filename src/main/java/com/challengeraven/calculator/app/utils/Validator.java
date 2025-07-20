@@ -11,8 +11,8 @@ import com.challengeraven.calculator.app.client.ValidEmaiHttpClient;
 import com.challengeraven.calculator.app.config.Constants;
 import com.challengeraven.calculator.app.config.EmailApiProperties;
 import com.challengeraven.calculator.app.config.TypeOperationEnum;
-import com.challengeraven.calculator.app.dto.ParametersOperation;
-import com.challengeraven.calculator.app.dto.ResponseMailBoxValidation;
+import com.challengeraven.calculator.app.dto.ParametersOperationDTO;
+import com.challengeraven.calculator.app.dto.ResponseMailBoxValidationDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -26,7 +26,7 @@ public class Validator {
 	
 	public static final Logger logger = LoggerFactory.getLogger(Validator.class);
 	
-	public void validateOperands(ParametersOperation request) {
+	public void validateOperands(ParametersOperationDTO request) {
 	    BigDecimal min = new BigDecimal("-1000000");
 	    BigDecimal max = new BigDecimal("1000000");
 
@@ -59,7 +59,7 @@ public class Validator {
 	}
 	
 	public void validationEmail(String email) {
-		ResponseMailBoxValidation validationEmail = validEmaiHttpClient.validationEmailByExternalService(emailProperties.getAccessKey(), email, 1, 1);
+		ResponseMailBoxValidationDTO validationEmail = validEmaiHttpClient.validationEmailByExternalService(emailProperties.getAccessKey(), email, 1, 1);
 		
 		if(validationEmail.getDisposable()) {
 			throw new IllegalArgumentException("Disposable email addresses are not allowed");
