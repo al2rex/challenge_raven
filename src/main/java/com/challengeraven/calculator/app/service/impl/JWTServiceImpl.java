@@ -96,6 +96,7 @@ public class JWTServiceImpl implements JWTService {
 
 
 	@Override
+	@Deprecated
 	public String refreshTokenClaims(Map<String, Object> extraClaims, UserDetails userDetails) {
 		
 		return generateToken(userDetails);
