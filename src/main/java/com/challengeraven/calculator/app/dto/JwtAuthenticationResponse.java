@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JwtAuthenticationResponse {
 	private String token;
-	private String refreshToken;
+
 }

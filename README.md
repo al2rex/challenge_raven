@@ -181,3 +181,7 @@ curl --location --request DELETE 'localhost:8080/api/history/6' \
 ## Documentación Swagger 
 Una vez el microservicio este ejecutado, en la pagina del navegador de su preferencia visitar la url
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) 
+
+## Cobertura de Pruebas
+
+![Cobertura de Pruebas](docs/coverage.png)

@@ -75,32 +75,10 @@ public class JWTServiceImpl implements JWTService {
 	}
 
 
-
 	@Override
-	public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
-		String userEmail = extractUsername(refreshTokenRequest.getToken());
-
-        UserEntity user = userRepository.findByEmail(userEmail).orElseThrow();
-        if (isTokenValid(refreshTokenRequest.getToken(), user)) {
-            var jwt = generateToken(user);
-
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-            jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
-            return jwtAuthenticationResponse;
-        }
-
-        return null;
-	}
-
-
-
-	@Override
-	@Deprecated
 	public String refreshTokenClaims(Map<String, Object> extraClaims, UserDetails userDetails) {
 		
 		return generateToken(userDetails);
 	}
-
 	
 }

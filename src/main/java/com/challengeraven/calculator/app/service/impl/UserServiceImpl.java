@@ -66,32 +66,16 @@ public class UserServiceImpl implements UserService {
 		
 		var user = userRepository.findByUsername(siginRequest.getUsername()).orElseThrow(() -> new IllegalArgumentException("invalid username or password"));
 		var jwt = jwtService.generateToken(user);
-		var refreshToken = jwtService.refreshTokenClaims(new HashMap<>(), user);
+		
 		
 		JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
 		jwtAuthenticationResponse.setToken(jwt);
-		jwtAuthenticationResponse.setRefreshToken(refreshToken);
+		
 		return jwtAuthenticationResponse;
 	}
 
 
-	@Override
-	@Deprecated
-	public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
-		String userEmail = jwtService.extractUsername(refreshTokenRequest.getToken());
-		
-		UserEntity user = userRepository.findByEmail(userEmail).orElseThrow();
-		if( jwtService.isTokenValid(refreshTokenRequest.getToken(), user) ){
-			var jwt = jwtService.generateToken(user);
-			
-			JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-			jwtAuthenticationResponse.setToken(jwt);
-			jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
-			return jwtAuthenticationResponse;
-		}
-		
-		return null;
-	}
+	
 
 
 	@Override
