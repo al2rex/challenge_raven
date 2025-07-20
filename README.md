@@ -176,7 +176,8 @@ curl --location --request DELETE 'localhost:8080/api/history/6' \
 3. Implementación de Lombok para agilizar la creación de clases tipo DTO y servicios, reduciendo el boilerplate mediante anotaciones.
 4. Uso de los principios de clean code en el desarrollo de los clases
 5. implementación de la libreria estable de jwt para la generacion de tokens, evitando funciones deprecadas.
-6. Configuración centralizada en el aplication.properties
+6. Configuración centralizada en el aplication.properties.
+7. Se hace uso de orm para facilitar la persitencia de los datos,  asi como la relaciones entre entidades.
 
 ## Documentación Swagger 
 Una vez el microservicio este ejecutado, en la pagina del navegador de su preferencia visitar la url

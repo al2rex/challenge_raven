@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.challengeraven.calculator.app.config.Constants;
 import com.challengeraven.calculator.app.repository.UserRepository;
 import com.challengeraven.calculator.app.service.JWTService;
 
@@ -54,7 +55,7 @@ public class JWTServiceImpl implements JWTService {
 	}
 	
 	private Key getSignInKey() {
-		byte[] key = Decoders.BASE64.decode("g5jK8zE2aY1XqRw9LsNp3vT0F7dUJ4Hl6VbM1WQrST8BcZkJp2");
+		byte[] key = Decoders.BASE64.decode(Constants.APP_SECRET_KEY);
 		return Keys.hmacShaKeyFor(key);
 	}
 	
