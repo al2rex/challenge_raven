@@ -10,8 +10,6 @@ import com.challengeraven.calculator.app.dto.RefreshTokenRequest;
 public interface JWTService {
 	String generateToken(UserDetails userDetails);
 	
-	JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
-	
 	String extractUsername(String token);
 	
 	Boolean isTokenValid(String token, UserDetails userDetails);
