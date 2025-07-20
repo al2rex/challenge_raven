@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.challengeraven.calculator.app.dto.ResponseOperationDTO;
+import com.challengeraven.calculator.app.dto.ResponseSignUpDTO;
 import com.challengeraven.calculator.app.entity.OperationEntity;
 import com.challengeraven.calculator.app.entity.UserEntity;
 
@@ -59,4 +60,12 @@ public class OperationMapper {
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
+	
+	public ResponseSignUpDTO fromUserEntityToResponseSignUpDTO(UserEntity userEntity) {
+		ResponseSignUpDTO responseSignUpDTO = new ResponseSignUpDTO();
+		responseSignUpDTO.setUsername(userEntity.getUsername());
+		responseSignUpDTO.setEmail(userEntity.getEmail());
+		responseSignUpDTO.setCreatedAt(userEntity.getCreatedAt().toString());
+		return responseSignUpDTO;
+	}
 }

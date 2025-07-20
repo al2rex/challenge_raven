@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
 import com.challengeraven.calculator.app.dto.RefreshTokenRequest;
-import com.challengeraven.calculator.app.dto.SiginRequest;
+import com.challengeraven.calculator.app.dto.ResponseSignUpDTO;
+import com.challengeraven.calculator.app.dto.SignInRequest;
 import com.challengeraven.calculator.app.dto.SignUpRequest;
 import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.repository.UserRepository;
 import com.challengeraven.calculator.app.service.JWTService;
 import com.challengeraven.calculator.app.service.UserService;
+import com.challengeraven.calculator.app.utils.OperationMapper;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +37,13 @@ public class UserServiceImpl implements UserService {
 	
 	private final AuthenticationManager authenticationManager;
 	
+	private final OperationMapper operationMapper;
+	
 	public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 
 	@Override
-	public UserEntity signUp(SignUpRequest signUpRequest) {
+	public ResponseSignUpDTO signUp(SignUpRequest signUpRequest) {
 		
 		UserEntity user = new UserEntity();
 		
@@ -47,12 +51,14 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(signUpRequest.getEmail());
 		user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 		user.setCreatedAt(LocalDate.now());
-		return userRepository.save(user);
+		UserEntity userSave = userRepository.save(user);
+		
+		return operationMapper.fromUserEntityToResponseSignUpDTO(userSave);
 	}
 
 
 	@Override
-	public JwtAuthenticationResponse siginin(SiginRequest siginRequest) {
+	public JwtAuthenticationResponse siginin(SignInRequest siginRequest) {
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(siginRequest.getUsername(), 
 				siginRequest.getPassword());
 		

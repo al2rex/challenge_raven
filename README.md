@@ -1,7 +1,7 @@
 # Calculadora - Challenge RAVEN
 - **Author:** Arnaldo Castilla - yo@elingaldo.com
 
-### Maquina usada para la creacion de este proyecto:
+### Maquina usada para la creación de este proyecto:
 
 ```
 Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)
@@ -21,7 +21,7 @@ OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
 - **Java:** 21  
 
 
-## 2. API externa utilizada y razón de la elección
+## 2. API externa utilizada y razón de la selección
 
 ### **[mailboxlayer](https://mailboxlayer.com/)**
 
@@ -136,19 +136,19 @@ curl --location 'localhost:8080/api/calculate' \
 }'
 ```
 
-**Listar paginado y por ordenamiento todas las operaciones**
+**Listar paginado y por ordenamiento de todas las operaciones**
 ```
 curl --location 'localhost:8080/api/history?page=0&size=5&sort=operandA%2Cdesc' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGRvIiwiaWF0IjoxNzUyOTA1OTUxLCJleHAiOjE3NTI5MDk1NTF9.TFQC2eiwFWAr8GHjD6HJcVdNAtDNB701FVAtGLHQ2YY'
 ```
 
-**Encontrar operacion por ID**
+**Encontrar operación por ID**
 ```
 curl --location 'localhost:8080/api/history/7' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGRvIiwiaWF0IjoxNzUyOTAwMDU0LCJleHAiOjE3NTI5MDM2NTR9.sPQ7M1hwlnlNVIFKdBWFmgRuDAm0gfKWZv3LkQHdVQI'
 ```
 
-**Eliminar operacion por ID**
+**Eliminar operación por ID**
 ```
 curl --location --request DELETE 'localhost:8080/api/history/6' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGRvIiwiaWF0IjoxNzUyOTAwMDU0LCJleHAiOjE3NTI5MDM2NTR9.sPQ7M1hwlnlNVIFKdBWFmgRuDAm0gfKWZv3LkQHdVQI'

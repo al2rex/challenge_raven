@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
 import com.challengeraven.calculator.app.dto.RefreshTokenRequest;
-import com.challengeraven.calculator.app.dto.SiginRequest;
+import com.challengeraven.calculator.app.dto.ResponseSignUpDTO;
+import com.challengeraven.calculator.app.dto.SignInRequest;
 import com.challengeraven.calculator.app.dto.SignUpRequest;
-import com.challengeraven.calculator.app.entity.UserEntity;
 import com.challengeraven.calculator.app.service.UserService;
 import com.challengeraven.calculator.app.utils.Validator;
 
@@ -31,13 +31,13 @@ public class UserController {
 	
 	@Operation(summary = "Obtener usuario por ID", description = "Devuelve un usuario específico por su ID")
 	@PostMapping("/register")
-	public ResponseEntity<UserEntity> signUp(@RequestBody SignUpRequest signUpRequest){
+	public ResponseEntity<ResponseSignUpDTO> signUp(@RequestBody SignUpRequest signUpRequest){
 		validator.validationEmail(signUpRequest.getEmail());
 		return ResponseEntity.ok(userService.signUp(signUpRequest));
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody SiginRequest siginRequest){
+	public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody SignInRequest siginRequest){
 		return ResponseEntity.ok(userService.siginin(siginRequest));
 	}
 	
