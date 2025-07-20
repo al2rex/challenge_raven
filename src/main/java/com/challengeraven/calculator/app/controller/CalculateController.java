@@ -79,7 +79,7 @@ public class CalculateController {
 
 	
 	@GetMapping("/history")
-	@Operation(summary = "Hirstorial operacion", description = "Puedes ver todas las operaciones realizadas por la calculadora, "
+	@Operation(summary = "Hirstorial operacion", description = "Puedes ver todas las operaciones realizadas por la calculadora paginadas, "
 			+ "de igual forma  puedes ordernarlos ascendente y descendentemente, "
 			+ "y ordenar por los campos openration,operandA, operandB, timestand")
 	public ResponseEntity<Page<ResponseOperationDTO>> operationHistoryList(

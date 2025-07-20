@@ -88,11 +88,11 @@ public class GlobalExceptionHandler {
         String userMessage;
 
         if (detailMessage.contains("users_username_key")) {
-            userMessage = "El nombre de usuario ya está en uso.";
+            userMessage = Constants.MSG_ERR_USER;
         } else if (detailMessage.contains("users_email_key")) {
-            userMessage = "El correo electrónico ya está en uso.";
+            userMessage = Constants.MSG_ERR_EMAIL;
         } else {
-            userMessage = "Error de integridad en la base de datos.";
+            userMessage = Constants.MSG_ERR_INTEGRITY;
         }
 
         ApiErrorDTO apiError = new ApiErrorDTO(
