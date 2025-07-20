@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.challengeraven.calculator.app.dto.JwtAuthenticationResponse;
-import com.challengeraven.calculator.app.dto.RefreshTokenRequest;
 import com.challengeraven.calculator.app.dto.ResponseSignUpDTO;
 import com.challengeraven.calculator.app.dto.SignInRequest;
 import com.challengeraven.calculator.app.dto.SignUpRequest;
@@ -40,9 +39,5 @@ public class UserController {
 	public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody SignInRequest siginRequest){
 		return ResponseEntity.ok(userService.siginin(siginRequest));
 	}
-	
-	@PostMapping("/refresh")
-	public ResponseEntity<JwtAuthenticationResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
-		return ResponseEntity.ok(userService.refreshToken(refreshTokenRequest));
-	}
+
 }

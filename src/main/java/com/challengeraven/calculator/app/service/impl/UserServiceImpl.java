@@ -76,6 +76,7 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
+	@Deprecated
 	public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
 		String userEmail = jwtService.extractUsername(refreshTokenRequest.getToken());
 		
