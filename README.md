@@ -11,6 +11,22 @@ Default locale: es_CO, platform encoding: UTF-8
 OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
 ```
 
+## 📑 Tabla de Contenido
+
+- [1. Versión](#1-versión)
+- [2. API externa utilizada y razón de la selección](#2-api-externa-utilizada-y-razón-de-la-selección)
+- [3. Ejemplo de configuración de API key](#3-ejemplo-de-configuración-de-api-key)
+- [4. Lógica aplicada para determinar si un email es aceptado](#4-lógica-aplicada-para-determinar-si-un-email-es-aceptado)
+- [5. Instrucciones de instalación](#5-instrucciones-de-instalación)
+- [6. Configuración de base de datos y API externa](#6-configuración-de-base-de-datos-y-api-externa)
+  - [6.1 Configuración base de datos PostgreSQL-14](#61-configuración-base-de-datos-postgresql-14)
+  - [6.2 Configuracion API externa](#62-configuracion-api-externa)
+- [7. Ejemplos de uso con curl/httpie](#7-ejemplos-de-uso-con-curlhttpie)
+  - [7.1 Usuarios](#71-usuarios)
+  - [7.2 Operaciones](#72-operaciones)
+- [8. Decisiones técnicas tomadas](#8-decisiones-técnicas-tomadas)
+- [Documentación Swagger](#documentación-swagger)
+
 ## 1. Versión
 
 - **IDE:** Spring Tool Suite 4

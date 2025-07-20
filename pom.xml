@@ -152,8 +152,10 @@
 			      <configuration>
 			        <excludes>
 			          <exclude>com/challengeraven/calculator/app/exception/**</exclude>
+			          <exclude>com/challengeraven/calculator/app/config/**</exclude>
 			          <exclude>com/challengeraven/calculator/app/dto/**</exclude>
 			          <exclude>com/challengeraven/calculator/app/entity/**</exclude>
+			          <exclude>com/challengeraven/calculator/app/utils/**</exclude>
 			        </excludes>
 			      </configuration>
 			    </execution>
